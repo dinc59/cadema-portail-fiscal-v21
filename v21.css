@@ -11,6 +11,8 @@
    ces deux polices tombent en 404 et le navigateur prend une police de
    secours. grist-bridge.css corrigeait déjà Inter et Manrope ; on finit.
    La dernière déclaration d'une même famille l'emporte. */
+@font-face { font-family: InterLocal; src: url(./assets/inter-latin-8kRkwJBP.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: ManropeLocal; src: url(./assets/manrope-latin-C46ZzDBF.woff2) format("woff2"); font-display: swap; }
 @font-face { font-family: FrauncesLocal; src: url(./assets/fraunces-latin-var.woff2) format("woff2-variations"); font-weight: 100 900; font-display: swap; }
 @font-face { font-family: PlexMonoLocal; src: url(./assets/plexmono-latin-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: PlexMonoLocal; src: url(./assets/plexmono-latin-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
