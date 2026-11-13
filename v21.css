@@ -1328,6 +1328,135 @@ body.v21-anim .v21-tax-view { transition: left 260ms var(--v21-ease-drawer); }
 .main .grant-score > i::before, .main .grant-score > i::after { display: none; }
 .main .grant-score strong { color: var(--text); }
 
+/* ── 14. AUDIT : survols et transitions hérités de la V20 ─────────────────
+   Généré à partir de portal.css (audit du 13/11/2026).
+   1. 49 effets de survol soulevaient ou décalaient l'élément
+      (translateY(-2 à -5 px), translate(3–4 px)). Sur un outil utilisé
+      toute la journée, les cartes qui sautent sous la souris fatiguent, et
+      sur tactile le survol reste « collé » après le doigt. On garde les
+      changements de couleur, d'ombre et de bordure ; on retire le mouvement.
+      La pression (:active) garde sa réponse — règles plus spécifiques.
+   2. 42 `transition: all` animaient aussi la largeur, la hauteur et
+      le padding au moindre changement d'état (coûteux, et des sauts de mise
+      en page). On garde leurs durées, en limitant les propriétés animées. */
+
+.visual-metrics>div:hover,
+.profile-select button:hover,
+.login-button:hover,
+.taxes button:hover,
+.signal:hover,
+.quick-grid button:hover,
+.product-grid>button:hover,
+.rs-state-grid button:hover,
+.rs-table>button:hover,
+.grant-switch>button:hover,
+.history-years button:hover,
+.priority-hero-numbers>div:hover,
+.priority-status-grid>button:hover,
+.priority-status-grid>button:hover:before,
+.priority-team>button:hover,
+.priority-card:hover,
+.priority-assignees button:hover,
+.grant-topic-cards>button:hover,
+.grant-topic-cards>button:hover:before,
+.grant-engine-grid button:hover,
+.docs-category-strip button:hover,
+.logo-options button:hover,
+.revenue-kpis article:hover,
+.composition-list button:hover,
+.revenue-product-rail>button:hover,
+.revenue-product-rail>button:hover:before,
+.nav-back:hover:not(:disabled),
+.priority-journal-feed>button:hover,
+.system-dock>button:hover,
+.quality-ribbon button:hover,
+.control-hero-kpis button:hover,
+.quality-alert:hover,
+.report-card:hover,
+.home-command-actions button:hover,
+.home-hero-kpis button:hover,
+.home-mini-nav button:hover,
+.home-product-bars button:hover,
+.rs-company-grid>button:hover,
+.rs-table > button:hover,
+.enterprise-table > button:hover,
+.cfe-table > button:hover,
+.premium-document-list > div:hover,
+.system-dock > button:hover,
+.rs-company-grid > button:hover,
+.quick-grid > button:hover,
+.grant-topic-cards > button:hover,
+.module-metric:hover,
+.ring-card:hover,
+.priority-status-grid > button:hover {
+  transform: none;
+}
+
+.visual-metrics>div,
+.profile-select button,
+.login-button,
+.taxes button,
+.signal,
+.priority-list button,
+.quick-grid button,
+.product-grid>button,
+.rs-state-grid button,
+.rs-table>button,
+.grant-switch>button,
+.grant-switch>button:before,
+.history-years button,
+.allocation-bars i,
+.priority-hero-numbers>div,
+.priority-status-grid>button,
+.priority-status-grid>button:before,
+.priority-team>button,
+.priority-card,
+.priority-assignees button,
+.grant-topic-cards>button,
+.grant-topic-cards>button:before,
+.grant-engine-grid button,
+.docs-category-strip button,
+.logo-options button,
+.revenue-kpis article,
+.composition-list button,
+.revenue-product-rail>button,
+.revenue-product-rail>button:before,
+.nav-back,
+.notification-item,
+.priority-journal-feed>button,
+.system-dock>button,
+.quality-ribbon button,
+.control-hero-kpis button,
+.quality-alert,
+.report-card,
+.home-command-actions button,
+.home-hero-kpis button,
+.home-mini-nav button,
+.home-product-bars button,
+.rs-company-grid>button {
+  transition-property: color, background-color, border-color, box-shadow, opacity, transform;
+}
+
+/* 3. Menus « Créer » et Notifications : ils naissaient de leur centre, en
+      240 ms. Un menu part du bouton qui l'ouvre (Radix fournit le point
+      d'ancrage), et s'ouvre en 160 ms. */
+.menu-pop,
+.notification-pop {
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin, top right);
+  animation: v21-menu 160ms var(--v21-ease-out) both;
+}
+@keyframes v21-menu {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 4. Fenêtres de saisie (rendues directement dans <body>) : 280 ms en
+      `ease` → 200 ms en ease-out, centrées (une fenêtre n'a pas d'ancre). */
+body > [role="dialog"].dialog {
+  transform-origin: center;
+  animation: v21-pop 200ms var(--v21-ease-out) both;
+}
+
 /* ── 5. MOUVEMENT RÉDUIT ────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1342,6 +1471,7 @@ body.v21-anim .v21-tax-view { transition: left 260ms var(--v21-ease-drawer); }
   .v21-rail-toggle:active { transform: none; }
   .v21-cfu-track > span, .v21-chart .bar .fill, .v21-chart.growth .delta .fill, .v21-exec-bars i b { animation: none; }
   .v21-tax-view.v21-enter-view > * { animation-name: v21-fade; animation-delay: 0ms; }
+  .menu-pop, .notification-pop, body > [role="dialog"].dialog { animation-name: v21-fade; }
   .main > :is(.module-page, .home-page, .company-page, .grants-page) > * { animation-name: v21-fade; animation-delay: 0ms !important; }
   @keyframes v21-fade { from { opacity: 0; } to { opacity: 1; } }
 }

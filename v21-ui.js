@@ -227,19 +227,21 @@ const nearbyCount = node => {
 const agree = node => {
   const value = node.nodeValue;
   let outer;
-  const fixed = value.replace(/\(s\)/g, (token, index) => {
+  /* « (s) » → s ; « (x) » (nouveau(x)…) → x. */
+  const fixed = value.replace(/\((s|x)\)/g, (token, letter, index) => {
     let count = lastNumber(value.slice(0, index));
     if (count === null) count = outer === undefined ? (outer = nearbyCount(node)) : outer;
-    return count !== null && count <= 1 ? '' : 's';
+    return count !== null && count <= 1 ? '' : letter;
   });
   if (fixed !== value) node.nodeValue = fixed;
 };
 
 const fixPlurals = safe(() => {
-  const root = document.querySelector('.portal');
-  if (!root) return;
+  /* Tout le document : menus, notifications et fenêtres sont rendus hors
+     de .portal (portails Radix). */
+  const root = document.body;
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-    acceptNode: node => node.nodeValue.includes('(s)') &&
+    acceptNode: node => /\((s|x)\)/.test(node.nodeValue) &&
       !node.parentElement?.closest('input, textarea, select, option, script, style, [contenteditable="true"]')
       ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT,
   });
@@ -334,6 +336,50 @@ const labelCompactControls = safe(() => {
   if (sync) set(sync, [sync.querySelector('b')?.textContent, sync.querySelector('small')?.textContent].filter(Boolean).join(' · '));
   set(document.querySelector('.topbar .nav-back'), 'Retour');
   for (const button of document.querySelectorAll('.topbar .round')) set(button, button.getAttribute('aria-label') || button.title);
+
+  /* Commandes à icône seule sans nom accessible en V20 : le lecteur d'écran
+     annonçait « bouton », sans plus. Attributs seulement. */
+  const name = (el, text) => {
+    if (!el || !text) return;
+    if (el.getAttribute('aria-label') !== text) el.setAttribute('aria-label', text);
+    set(el, text);
+  };
+  name(document.querySelector('.topbar .hamb'), 'Ouvrir le menu');
+  const dark = document.documentElement.dataset.theme === 'dark';
+  for (const button of document.querySelectorAll('.topbar .round:not(.notification-trigger)')) {
+    if (!button.textContent.trim() && !button.title) name(button, dark ? 'Passer en mode clair' : 'Passer en mode sombre');
+  }
+  const bell = document.querySelector('.topbar .notification-trigger');
+  if (bell && !bell.getAttribute('aria-label') && !bell.title) name(bell, 'Notifications');
+  const views = document.querySelectorAll('.rs-view-switch > button');
+  ['Vue en cartes', 'Vue en tableau'].forEach((label, i) => {
+    const button = views[i];
+    if (!button) return;
+    name(button, label);
+    const pressed = String(button.classList.contains('active'));
+    if (button.getAttribute('aria-pressed') !== pressed) button.setAttribute('aria-pressed', pressed);
+  });
+  const year = document.querySelector('.top-actions > select');
+  if (year && !year.getAttribute('aria-label')) year.setAttribute('aria-label', 'Exercice affiché');
+});
+
+/* ── Fenêtres : le curseur va dans le formulaire ──────────────────────────
+   Ouverte depuis le menu « Créer », une fenêtre de saisie laissait le focus
+   sur le bouton « Créer » (le menu le lui rend en se fermant, juste après
+   l'ouverture de la fenêtre) : au clavier, on tapait dans le vide. */
+
+let lastDialog = null;
+const focusDialog = safe(() => {
+  const dialog = [...document.querySelectorAll('[role="dialog"]')].pop() || null;
+  if (dialog === lastDialog) return;
+  lastDialog = dialog;
+  if (!dialog) return;
+  setTimeout(() => {
+    if (!dialog.isConnected || dialog.contains(document.activeElement)) return;
+    const field = dialog.querySelector('input:not([type=hidden]):not([disabled]), select:not([disabled]), textarea:not([disabled])')
+      || dialog.querySelector('button:not([disabled])');
+    field?.focus({preventScroll: true});
+  }, 60);
 });
 
 /* ── Boucle d'observation ────────────────────────────────────────────────── */
@@ -351,6 +397,7 @@ const tick = () => {
   placePill();
   watchDock();
   labelCompactControls();
+  focusDialog();
   fixPlurals();
   decorateData();
   drawCfuBars();
