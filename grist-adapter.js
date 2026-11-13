@@ -470,6 +470,9 @@ export class CademaGristBridge {
   async init() {
     globalThis.CADEMA_BRIDGE_VERSION = BRIDGE_VERSION;
     const inFrame = window.parent !== window;
+    /* V21 — dans un cadre mais sans l'API Grist (script bloqué ou adresse
+       d'instance différente) : on le dit au lieu d'un portail vide muet. */
+    if (inFrame && !window.grist) this.gristAccessError = 'API Grist non chargée (grist-plugin-api.js)';
     if (inFrame && window.grist) {
       try {
         window.grist.ready({requiredAccess:'full'});
@@ -1602,7 +1605,7 @@ export class CademaGristBridge {
       const blocked = !this.connected && this.gristAccessError;
       this.status.className = `cadema-grist-status ${this.connected ? 'ok' : blocked ? 'error' : 'preview'}`;
       this.status.textContent = this.connected ? '● Synchronisé avec Grist'
-        : blocked ? '▲ Grist ne donne pas accès aux tables : dans les options du widget, choisissez « Accès complet au document »'
+        : blocked ? `▲ Grist ne donne pas accès aux tables : dans les options du widget, choisissez « Accès complet au document ». Détail : ${this.gristAccessError}`
         : '● Mode aperçu local';
       if (blocked) this.status.title = this.gristAccessError;
       document.body.appendChild(this.status);
