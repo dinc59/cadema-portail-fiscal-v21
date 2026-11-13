@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Portail Fiscal CADEMA</title>
+    <link rel="stylesheet" href="./portal.css" />
+    <link rel="stylesheet" href="./grist-bridge.css" />
+    <link rel="stylesheet" href="./v21.css" />
+    <!-- API plugin servie par l'instance qui héberge réellement le document.
+         L'ancienne valeur pointait sur docs.getgrist.com alors que le portail
+         tourne sur grist.numerique.gouv.fr. Une seule ligne à changer en cas
+         de changement d'instance. -->
+    <script src="https://grist.numerique.gouv.fr/grist-plugin-api.js"></script>
+    <script type="module" src="./bootstrap.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

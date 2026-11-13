@@ -1,0 +1,127 @@
+@font-face{font-family:InterLocal;src:url(./assets/inter-latin-8kRkwJBP.woff2) format("woff2");font-display:swap}
+@font-face{font-family:ManropeLocal;src:url(./assets/manrope-latin-C46ZzDBF.woff2) format("woff2");font-display:swap}
+
+.cadema-grist-status{position:fixed;right:18px;bottom:16px;z-index:1400;border:1px solid #dce8ed;background:#fff;color:#0b4253;border-radius:999px;padding:8px 13px;font:750 10px InterLocal,system-ui;box-shadow:0 12px 34px #0a344022;letter-spacing:.01em}
+.cadema-grist-status.ok{color:#087269;border-color:#bde9df;background:#f0fffb}.cadema-grist-status.pending{color:#17679a;border-color:#c9e5f7;background:#f2faff}.cadema-grist-status.error{color:#a94438;border-color:#f4cec8;background:#fff5f3}.cadema-grist-status.preview{color:#7a5b14;border-color:#f1dda8;background:#fffaf0}
+.cadema-team-update{position:fixed;top:18px;left:50%;z-index:1600;transform:translateX(-50%);display:flex;align-items:center;gap:12px;background:#082f49;color:#fff;border:1px solid #ffffff26;border-radius:15px;padding:10px 12px 10px 17px;box-shadow:0 18px 50px #041d2e55;font:700 11px InterLocal,system-ui}
+.cadema-team-update button{border:0;background:#1cc4b2;color:#052e3d;border-radius:10px;padding:8px 12px;font-weight:800;cursor:pointer}.cadema-team-update button.later{background:#ffffff17;color:#fff;width:32px;height:32px;padding:0;font-size:20px}
+
+.sidebar nav button[data-cadema-accounting] svg{width:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cadema-accounting-overlay{position:fixed;z-index:100;left:272px;right:0;top:74px;bottom:0;overflow:auto;background:var(--bg,#f2f7f8);color:var(--text,#0d3042);padding:28px 30px 70px;animation:cadema-accounting-in .24s ease-out}
+@keyframes cadema-accounting-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cadema-accounting-loading,.cadema-accounting-error{min-height:420px;display:grid;place-items:center;align-content:center;gap:14px;text-align:center}.cadema-accounting-loading span{width:44px;height:44px;border:4px solid #d9eaed;border-top-color:#12a89c;border-radius:50%;animation:cadema-spin .8s linear infinite}@keyframes cadema-spin{to{transform:rotate(360deg)}}
+.cadema-accounting-error button{background:#0e948d;color:#fff;border:0;border-radius:11px;padding:10px 18px;cursor:pointer}
+.cadema-accounting-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;max-width:1700px;margin:auto}.cadema-accounting-head>div>span{text-transform:uppercase;letter-spacing:.14em;color:#109d94;font-size:10px;font-weight:850}.cadema-accounting-head h1{font:800 31px ManropeLocal,system-ui;letter-spacing:-.045em;margin:8px 0 5px}.cadema-accounting-head p{color:var(--muted,#657a86);font-size:11px;max-width:760px}.cadema-accounting-close{width:42px;height:42px;border:1px solid var(--line,#dbe6e8);background:var(--panel,#fff);color:var(--text,#0d3042);border-radius:13px;font-size:25px;cursor:pointer;box-shadow:0 8px 22px #0b344014}
+.cadema-accounting-filters{max-width:1700px;margin:20px auto 14px;padding:12px;border:1px solid var(--line,#dbe6e8);background:var(--panel,#fff);border-radius:17px;display:flex;align-items:flex-end;gap:10px;box-shadow:0 10px 32px #12394b0c}.cadema-accounting-filters label{display:grid;gap:5px;color:var(--muted,#657a86);font-size:9px;font-weight:800}.cadema-accounting-filters label.search{flex:1}.cadema-accounting-filters select,.cadema-accounting-filters input{height:39px;min-width:145px;border:1px solid var(--line,#dbe6e8);background:var(--panel2,#f6fafb);color:var(--text,#0d3042);border-radius:10px;padding:0 11px;outline:none;font-size:10px}.cadema-accounting-filters input{width:100%}.cadema-accounting-filters button{height:39px;border:0;border-radius:10px;padding:0 14px;background:linear-gradient(110deg,#0ea99e,#258bd5);color:#fff;font-size:9px;font-weight:850;cursor:pointer}.cadema-accounting-filters button:last-child{background:#0c3f57}
+.cadema-accounting-kpis{max-width:1700px;margin:0 auto 14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.cadema-accounting-kpis article{border:1px solid var(--line,#dbe6e8);background:var(--panel,#fff);border-radius:18px;padding:18px 19px;box-shadow:0 10px 32px #12394b0c;position:relative;overflow:hidden}.cadema-accounting-kpis article:after{content:"";position:absolute;width:82px;height:82px;border-radius:50%;right:-28px;top:-30px;background:#16b8a510}.cadema-accounting-kpis small,.cadema-accounting-kpis strong,.cadema-accounting-kpis span{display:block}.cadema-accounting-kpis small{color:var(--muted,#657a86);font-size:9px;font-weight:750}.cadema-accounting-kpis strong{font:800 23px ManropeLocal,system-ui;margin:8px 0 5px;letter-spacing:-.035em}.cadema-accounting-kpis span{color:var(--muted,#657a86);font-size:9px}.cadema-accounting-kpis article.positive strong{color:#098a76}.cadema-accounting-kpis article.negative strong{color:#d24c5c}
+.cadema-accounting-grid{max-width:1700px;margin:auto;display:grid;grid-template-columns:1fr;gap:14px}.cadema-accounting-card{border:1px solid var(--line,#dbe6e8);background:var(--panel,#fff);border-radius:20px;padding:19px;box-shadow:0 12px 38px #12394b0d;min-width:0}.cadema-accounting-card .card-title{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:13px}.cadema-accounting-card .card-title small{text-transform:uppercase;letter-spacing:.12em;color:#0f9d94;font-size:8px;font-weight:850}.cadema-accounting-card .card-title h2{font:780 17px ManropeLocal,system-ui;margin-top:3px}.cadema-accounting-card .card-title>b{background:color-mix(in srgb,#16aa9f 10%,var(--panel,#fff));color:#0a887f;border-radius:999px;padding:7px 10px;font-size:8px}
+.cadema-accounting-table{width:100%;overflow:auto;border:1px solid var(--line,#dbe6e8);border-radius:13px}.cadema-accounting-table table{width:100%;border-collapse:collapse;min-width:920px}.cadema-accounting-table th{position:sticky;top:0;z-index:1;text-align:left;text-transform:uppercase;letter-spacing:.07em;background:var(--panel2,#f5f9fa);color:var(--muted,#657a86);font-size:8px;padding:10px 11px;border-bottom:1px solid var(--line,#dbe6e8)}.cadema-accounting-table td{padding:10px 11px;border-bottom:1px solid var(--line,#e5edef);font-size:9px;white-space:nowrap;max-width:360px;overflow:hidden;text-overflow:ellipsis}.cadema-accounting-table tr:last-child td{border-bottom:0}.cadema-accounting-table tr:hover td{background:color-mix(in srgb,#12aa9f 4%,transparent)}.cadema-accounting-table td.money{text-align:right;font-weight:780;font-variant-numeric:tabular-nums}.limit-note{padding:10px 12px;color:var(--muted,#657a86);font-size:9px}.cadema-accounting-empty{min-height:150px;border:1px dashed var(--line,#dbe6e8);border-radius:13px;display:grid;place-items:center;align-content:center;gap:5px;color:var(--muted,#657a86)}.cadema-accounting-empty b{color:var(--text,#0d3042);font-size:11px}.cadema-accounting-empty span{font-size:9px}
+
+.documents-command .premium-document-list>div{min-width:0}.documents-command .premium-document-list>div>div{min-width:0}.documents-command .premium-document-list b[title]{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* « Soldée » est le seul état qui doit sauter aux yeux : une entreprise qui
+   a payé se repère sans lire. Les trois autres gardent la pastille neutre du
+   portail — colorer les 104 « À qualifier » ne signalerait plus rien.
+   Sélecteur en ASCII pur pour ne pas dépendre de l'encodage de « é ». */
+.rs-table em[data-cadema-paid],
+.rs-card-top em[data-cadema-paid],
+.company-spotlight-status em[data-cadema-paid]{
+  border-color:#bfe3d3;background:#e9f8ef;color:#1d7a45;font-weight:700
+}
+[data-theme="dark"] .rs-table em[data-cadema-paid],
+[data-theme="dark"] .rs-card-top em[data-cadema-paid],
+[data-theme="dark"] .company-spotlight-status em[data-cadema-paid]{
+  border-color:#1f6b4a;background:#0e3324;color:#8fe0b2
+}
+
+/* Rappel de l'exercice dans la barre du portefeuille : le même réglage que
+   le sélecteur du bandeau, mais là où l'on lit les montants. */
+/* `.rs-toolbar` est une grille à trois colonnes : ajouté en quatrième
+   élément, le sélecteur passait à la ligne ET s'étirait sur toute la
+   largeur — d'où la grande pastille vide. `justify-self` le ramène à la
+   taille de son contenu, aligné sur le sélecteur de vue juste à sa gauche. */
+.cadema-rs-exercise{display:inline-flex;align-items:center;gap:7px;flex:none;justify-self:start;width:max-content;height:40px;padding:0 11px;border:1px solid var(--line,#dbe6e8);border-radius:8px;background:var(--panel2,#f6fafb)}
+.cadema-rs-exercise small{font:750 8.5px InterLocal,system-ui;letter-spacing:.09em;text-transform:uppercase;color:var(--muted,#657a86)}
+.cadema-rs-exercise select{border:0;background:none;color:var(--text,#0d3042);font:800 12px InterLocal,system-ui;font-variant-numeric:tabular-nums;cursor:pointer;outline:none}
+.cadema-rs-exercise select:focus-visible{outline:2px solid #258bd5;outline-offset:3px}
+[data-theme="dark"] .cadema-rs-exercise{border-color:#24333c;background:#0f2530}
+
+/* Le bandeau et ses quatre cartes de situation lisaient comme deux zones de
+   chiffres séparées. On les rapproche pour qu'ils forment un seul bloc :
+   le total et sa répartition, pas deux tableaux de bord superposés. */
+.rs-state-grid{margin-top:10px}
+
+/* La barre latérale est en `position:fixed; inset:0 auto 0 0` : elle occupe
+   toute la hauteur de la *fenêtre*, qui dans Grist est celle de l'iframe du
+   widget — souvent plus courte que le menu. Le bas du menu se retrouvait
+   alors hors cadre, et comme un élément fixe ne suit pas le défilement de la
+   page, il était tout simplement inatteignable. On fait donc défiler la
+   navigation à l'intérieur de la barre : le logo reste en haut, le pied en
+   bas, et seules les entrées de menu défilent. `min-height:0` est
+   indispensable — sans lui, un enfant de conteneur flex refuse de se
+   réduire sous la taille de son contenu et déborde malgré `overflow`. */
+   Le portail n'habille aucune barre de défilement : celles qu'on voit sont
+   celles du navigateur. On garde donc la même, simplement amincie et teintée
+   pour le fond sombre — pas de barre dessinée à la main qui jurerait avec le
+   reste. Propriétés standard : là où elles ne sont pas suivies, on retombe
+   sur la barre native, et le défilement fonctionne dans tous les cas. */
+.sidebar{overflow:hidden}
+.sidebar nav{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#ffffff2b transparent}
+
+/* Choix du profil, sous le nom affiché dans la barre latérale. Discret :
+   c'est un réglage qu'on touche une fois, pas une commande du quotidien. */
+.cadema-identity{display:flex;align-items:center;gap:7px;margin:7px 2px 0;padding:0 2px}
+.cadema-identity small{color:#ffffff7a;font:700 9px InterLocal,system-ui;letter-spacing:.06em;text-transform:uppercase;flex:none}
+.cadema-identity select{flex:1;min-width:0;border:1px solid #ffffff24;background:#ffffff10;color:#fff;border-radius:8px;padding:5px 7px;font:700 10.5px InterLocal,system-ui;cursor:pointer;outline:none}
+.cadema-identity select:focus-visible{outline:2px solid var(--brand-mark,#1cc4b2);outline-offset:2px}
+.cadema-identity select option{color:#0d3042}
+.cadema-identity>small:only-child{text-transform:none;letter-spacing:0;font-weight:600;line-height:1.45;color:#ffffff66}
+
+/* Le cercle « N soldée(s) » répétait mot pour mot la carte « Soldée » juste
+   en dessous : deux fois le même chiffre, à deux endroits, d'où l'impression
+   de chiffres éparpillés. On le retire et on rend sa place aux deux colonnes
+   utiles — le total à gauche, les montants à droite — sur toute la largeur.
+   La hauteur du bandeau suit, puisqu'elle n'était dimensionnée que pour le
+   cercle. Les paliers responsive du portail (1200px et 850px) continuent de
+   s'appliquer tels quels. */
+.rs-orbit{display:none}
+@media (min-width:1201px){
+  .rs-hero{grid-template-columns:1.3fr 1fr;min-height:200px}
+}
+
+/* Dépôt des pièces sur la fiche : deux lignes sobres, alignées sur les
+   champs du formulaire qu'elles prolongent. */
+.cadema-rs-piece{grid-column:1/-1;display:flex;align-items:center;gap:11px;margin:2px 0 0;padding:11px 13px;border:1px solid var(--line,#dbe6e8);border-radius:13px;background:var(--panel2,#f6fafb)}
+.cadema-rs-piece>div:not(.cadema-rs-piece-actions){min-width:0;flex:1}
+.cadema-rs-piece-mark{width:19px;height:19px;flex:0 0 19px;display:grid;place-items:center;border-radius:50%;color:#fff;background:linear-gradient(145deg,#d39b2d,#a96f0c);font:900 10px/1 InterLocal,system-ui;font-style:normal}
+.cadema-rs-piece.present .cadema-rs-piece-mark{background:linear-gradient(145deg,#0f9c8d,#087265)}
+.cadema-rs-piece.present{border-color:#c8e8de;background:#f6fffc}
+[data-theme="dark"] .cadema-rs-piece.present{border-color:#1b665d;background:#0d302e}
+.cadema-rs-piece b{display:block;font:760 11px/1.3 InterLocal,system-ui;color:var(--text,#0d3042)}
+.cadema-rs-piece small{display:block;margin-top:2px;font-size:9.5px;color:var(--muted,#657a86)}
+.cadema-rs-piece-actions{display:flex;align-items:center;gap:7px;flex:none}
+.cadema-rs-piece-actions button{border:1px solid var(--line,#dbe6e8);background:var(--panel,#fff);color:var(--text,#0d3042);border-radius:9px;padding:7px 11px;font:750 9.5px InterLocal,system-ui;cursor:pointer}
+.cadema-rs-piece-actions button:hover{border-color:color-mix(in srgb,#0e948d 45%,var(--line,#dbe6e8))}
+.cadema-rs-piece-actions button.primary{border-color:transparent;background:linear-gradient(110deg,#0ea99e,#258bd5);color:#fff}
+.cadema-rs-piece-actions button:focus-visible{outline:2px solid #258bd5;outline-offset:2px}
+[data-theme="dark"] .cadema-rs-piece{border-color:#24333c;background:#0f2530}
+[data-theme="dark"] .cadema-rs-piece-actions button{border-color:#2b3f49;background:#14303c;color:#e2eef1}
+@media(max-width:620px){.cadema-rs-piece{flex-direction:column;align-items:flex-start}}
+
+/* `.home-hero-kpis` est une grille `repeat(3,1fr)` : par défaut CSS, une piste
+   `1fr` a un minimum implicite égal au contenu, donc un montant large (ou un
+   grand écran avec des recettes à 7 chiffres) pousse la carte au-delà de sa
+   colonne et chevauche la suivante. `min-width:0` sur la carte rétablit le
+   rétrécissement normal ; la taille de police fluide évite ensuite la
+   coupure du chiffre plutôt que de le tronquer. */
+.home-hero-kpis>button{min-width:0}
+.home-hero-kpis strong{font-size:clamp(13px,1.7vw,22px);white-space:nowrap}
+
+.cadema-footer{position:static;margin:28px 0 0;padding:12px 4px 4px;border-top:1px solid var(--line,#e5edef);color:var(--muted,#8a9aa4);font:600 10.5px InterLocal,system-ui;text-align:center;letter-spacing:.01em}
+.cadema-footer span{font-size:10px}
+@media(max-width:620px){.cadema-footer{margin-top:20px;padding:10px 4px 4px;font-size:10px}}
+[data-theme="dark"] .cadema-footer{border-top-color:#24333c;color:#7f929c}
+
+[data-theme="dark"] .cadema-grist-status{background:#0b2d40;border-color:#245064;color:#d7eff3}[data-theme="dark"] .cadema-grist-status.ok{background:#073f3a;border-color:#11685f;color:#9bf0de}
+@media(max-width:1050px){.cadema-accounting-overlay{left:0}.cadema-accounting-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.cadema-accounting-filters{flex-wrap:wrap}.cadema-accounting-filters label.search{flex-basis:100%}}
+@media(max-width:620px){.cadema-accounting-overlay{top:64px;padding:20px 14px 70px}.cadema-accounting-head h1{font-size:24px}.cadema-accounting-kpis{grid-template-columns:1fr}.cadema-accounting-filters label{width:100%}.cadema-accounting-filters select{width:100%}.cadema-accounting-filters button{flex:1}.cadema-grist-status{right:10px;bottom:10px}}
