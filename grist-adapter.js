@@ -528,6 +528,7 @@ export class CademaGristBridge {
       return [name, columnarToRows(table), Object.keys(table || {})];
     }));
     const failed = [];
+    const reasons = new Map();
     for (const [index, result] of settled.entries()) {
       if (result.status === 'fulfilled') {
         const [name, rows, columns] = result.value;
@@ -536,9 +537,15 @@ export class CademaGristBridge {
         this.columns.set(name, new Set(columns));
       } else {
         failed.push(TABLE_NAMES[index]);
+        reasons.set(TABLE_NAMES[index], result.reason?.message || String(result.reason));
       }
     }
-    if (!this.tables.Parametres) throw new Error('Table Parametres introuvable');
+    /* V21 — dire pourquoi : toutes les tables refusées = droit d'accès du
+       widget ; une seule = nom de table différent dans ce document. */
+    if (!this.tables.Parametres) {
+      const why = reasons.get('Parametres') || 'table absente';
+      throw new Error(`Table Parametres illisible (${this.loadedTables.size}/${TABLE_NAMES.length} tables lues). Raison Grist : ${why}`);
+    }
     if (failed.length) console.warn('Tables Grist non lues, écriture désactivée pour elles :', failed.join(', '));
   }
 
