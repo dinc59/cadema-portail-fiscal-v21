@@ -876,6 +876,14 @@ body.v21-anim .cadema-accounting-overlay { transition: left 260ms var(--v21-ease
 .cadema-grist-status.pending { color: var(--c-blue); border-color: color-mix(in oklab, var(--c-blue) 25%, var(--line)); background: color-mix(in oklab, var(--wash-blue) 85%, transparent); }
 .cadema-grist-status.error { color: var(--c-red); border-color: color-mix(in oklab, var(--c-red) 35%, var(--line)); background: var(--wash-red); }
 .cadema-grist-status.ok:not(:hover) { opacity: .72; }
+/* Message d'accès refusé : il doit être lu en entier. */
+.cadema-grist-status.error {
+  max-width: min(440px, calc(100vw - 32px));
+  white-space: normal;
+  border-radius: 12px;
+  line-height: 1.4;
+  padding: 10px 14px;
+}
 
 /* Le bouton « Budget & CFU » devient l'entrée active quand la vue est
    ouverte (attribut posé par v21-ui.js). */

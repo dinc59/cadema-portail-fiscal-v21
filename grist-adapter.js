@@ -481,6 +481,10 @@ export class CademaGristBridge {
         this.observeParametres();
       } catch (error) {
         console.error('Connexion Grist indisponible', error);
+        /* V21 — dans Grist mais sans accès aux tables : le plus souvent, le
+           widget n'a pas « Accès complet ». La V20 affichait « Mode aperçu
+           local » et un portail vide, sans dire pourquoi. */
+        this.gristAccessError = error?.message || String(error);
       }
     }
 
@@ -1595,8 +1599,12 @@ export class CademaGristBridge {
     }
     if (!this.status) {
       this.status = document.createElement('div');
-      this.status.className = `cadema-grist-status ${this.connected ? 'ok' : 'preview'}`;
-      this.status.textContent = this.connected ? '● Synchronisé avec Grist' : '● Mode aperçu local';
+      const blocked = !this.connected && this.gristAccessError;
+      this.status.className = `cadema-grist-status ${this.connected ? 'ok' : blocked ? 'error' : 'preview'}`;
+      this.status.textContent = this.connected ? '● Synchronisé avec Grist'
+        : blocked ? '▲ Grist ne donne pas accès aux tables : dans les options du widget, choisissez « Accès complet au document »'
+        : '● Mode aperçu local';
+      if (blocked) this.status.title = this.gristAccessError;
       document.body.appendChild(this.status);
     }
   }
