@@ -325,6 +325,53 @@ const drawCfuBars = safe(() => {
   table.closest('.cadema-accounting-table')?.before(box);
 });
 
+/* ── Textes : dire où sont vraiment les données ─────────────────────────
+   Le portail a été écrit pour un usage hors ligne : « stockage local »,
+   « vos données restent sur cet appareil »… Dans Grist, c'est faux : les
+   montants, tâches, documents et paramètres sont enregistrés dans le
+   document Grist. Ces libellés sont réécrits UNIQUEMENT quand le portail
+   est connecté à Grist ; hors Grist, ils restent exacts et inchangés.
+   Même technique que les accords : nodeValue des nœuds existants. */
+
+const GRIST_WORDING = [
+  ['Les montants, tâches et métadonnées sont conservés dans le navigateur. Les fichiers et grands jeux de données restent dans son stockage local IndexedDB. Le code du portail est en ligne, pas vos données métier.',
+   'Les montants, tâches, documents et paramètres sont enregistrés dans le document Grist, avec ses droits d\'accès (ProConnect). Le code du portail est en ligne, pas vos données métier.'],
+  ['Les fichiers restent dans le navigateur de cet appareil et sont inclus dans votre sauvegarde JSON complète.',
+   'Les fichiers sont enregistrés dans les pièces jointes du document Grist.'],
+  ['Vos données restent uniquement sur cet appareil.', 'Vos données sont enregistrées dans le document Grist.'],
+  ['Confidentiel · stockage local', 'Confidentiel · données dans Grist'],
+  ['Aucune donnée envoyée en ligne', 'Données enregistrées dans Grist'],
+  ['événement(s) conservé(s) localement', 'événement(s) enregistré(s) dans Grist'],
+  ['message(s) conservé(s) localement', 'message(s) enregistré(s) dans Grist'],
+  ['élément(s) enregistrés localement', 'élément(s) enregistré(s) dans Grist'],
+  ['Exercice enregistré localement', 'Exercice enregistré dans Grist'],
+  ['Répartition FPIC enregistrée localement', 'Répartition FPIC enregistrée dans Grist'],
+  ['Entreprise ajoutée localement', 'Entreprise ajoutée dans Grist'],
+  ['Enregistrer localement', 'Enregistrer dans Grist'],
+  ['Stockage sur cet appareil', 'Stockage dans Grist'],
+  ['Conservées sur cet appareil', 'Conservées dans Grist'],
+  ['Local à cet appareil', 'Document Grist'],
+  ['Aucun envoi en ligne', 'Enregistré dans Grist'],
+  ['Saisi localement', 'Saisi dans Grist'],
+  ['Stockage local', 'Stockage Grist'],
+];
+
+const rewordForGrist = safe(() => {
+  if (!window.CADEMA_GRIST?.connected) return;
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode: node => /localement|cet appareil|navigateur|stockage local|Stockage local|en ligne/.test(node.nodeValue) &&
+      !node.parentElement?.closest('input, textarea, select, option, script, style, [contenteditable="true"], .v21-tax-view')
+      ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT,
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    let value = node.nodeValue;
+    for (const [from, to] of GRIST_WORDING) if (value.includes(from)) value = value.split(from).join(to);
+    if (value !== node.nodeValue) node.nodeValue = value;
+  }
+});
+
 /* ── Libellés d'infobulle sur les commandes compactées ────────────────── */
 
 const labelCompactControls = safe(() => {
@@ -398,6 +445,7 @@ const tick = () => {
   watchDock();
   labelCompactControls();
   focusDialog();
+  rewordForGrist();
   fixPlurals();
   decorateData();
   drawCfuBars();
